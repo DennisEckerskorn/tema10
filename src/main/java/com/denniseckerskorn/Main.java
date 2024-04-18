@@ -2,6 +2,7 @@ package com.denniseckerskorn;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Ejer01 ejer01 = new Ejer01();
+
     }
 }
