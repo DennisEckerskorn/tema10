@@ -45,16 +45,41 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
 
     @Override
     public double sumatorio() {
-        return 0;
+        double sum = 0;
+        for(int i = 0; i < size(); i++) {
+            double value = get(i);
+            sum += value;
+        }
+        return sum;
     }
 
     @Override
     public double media() {
-        return 0;
+        double sum = 0;
+        for(int i = 0; i < size(); i++) {
+            double value = get(i);
+            sum += value;
+        }
+        if(size() > 0) {
+            return sum / size();
+        } else {
+            return 0; //Para evitar división por 0 si la lista está vacía.
+        }
     }
 
     @Override
     public double moda() {
+        String decimalValue1 = "";
+        String decimalValue2 = "";
+        for(int i = 0; i < size(); i++) {
+            double value1 = get(i);
+            double value2 = get(i + 1);
+            decimalValue1 = String.valueOf(value1);
+            decimalValue2 = String.valueOf(value2);
+            if(decimalValue1.equals(decimalValue2)) {
+
+            }
+        }
         return 0;
     }
 }
