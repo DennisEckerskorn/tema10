@@ -2,10 +2,10 @@ package com.denniseckerskorn.ejer02;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadisticas {
     private static final int DEFAULT_CAPACITY = 10;
-
 
     public ArrayListEstadisticas() {
         this(DEFAULT_CAPACITY);
@@ -66,7 +66,22 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
 
     @Override
     public double moda() {
-        //Falta implementar correctamente...
-        return 0;
+        HashMap<Double, Integer> repeticiones = new HashMap<>();
+        int maxReps = 0;
+        double valorMasRepetido = get(0);
+        for (int i = 0; i < size(); i++) {
+            double numero = get(i);
+            int valor = 0;
+            Integer reps = repeticiones.get(numero);
+            if (reps != null) {
+                valor = reps + 1;
+            }
+            if (maxReps < valor) {
+                valorMasRepetido = numero;
+                maxReps = valor;
+            }
+            repeticiones.put(numero, valor);
+        }
+        return valorMasRepetido;
     }
 }
