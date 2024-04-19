@@ -22,9 +22,9 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
     @Override
     public double minimo() {
         double min = Double.MAX_VALUE;
-        for(int i = 0; i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             double value = get(i);
-            if(value < min) {
+            if (value < min) {
                 min = value;
             }
         }
@@ -34,9 +34,9 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
     @Override
     public double maximo() {
         double max = Double.MIN_VALUE;
-        for(int i = 0; i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             double value = get(i);
-            if(value > max) {
+            if (value > max) {
                 max = value;
             }
         }
@@ -46,7 +46,7 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
     @Override
     public double sumatorio() {
         double sum = 0;
-        for(int i = 0; i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             double value = get(i);
             sum += value;
         }
@@ -56,11 +56,8 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
     @Override
     public double media() {
         double sum = 0;
-        for(int i = 0; i < size(); i++) {
-            double value = get(i);
-            sum += value;
-        }
-        if(size() > 0) {
+        sum = sumatorio();
+        if (size() > 0) {
             return sum / size();
         } else {
             return 0; //Para evitar división por 0 si la lista está vacía.
@@ -69,17 +66,7 @@ public class ArrayListEstadisticas extends ArrayList<Double> implements IEstadis
 
     @Override
     public double moda() {
-        String decimalValue1 = "";
-        String decimalValue2 = "";
-        for(int i = 0; i < size(); i++) {
-            double value1 = get(i);
-            double value2 = get(i + 1);
-            decimalValue1 = String.valueOf(value1);
-            decimalValue2 = String.valueOf(value2);
-            if(decimalValue1.equals(decimalValue2)) {
-
-            }
-        }
+        //Falta implementar correctamente...
         return 0;
     }
 }
