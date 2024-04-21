@@ -2,8 +2,8 @@ package com.denniseckerskorn.ejer03;
 
 import java.util.Random;
 
-public class Principal {
-    public Principal() {
+public class PrincipalPila {
+    public PrincipalPila() {
         Pila<Integer> pila = new Pila<>();
         Random rnd = new Random();
 

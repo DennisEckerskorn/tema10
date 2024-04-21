@@ -1,11 +1,7 @@
 package com.denniseckerskorn;
 
-import com.denniseckerskorn.ejer03.Principal;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import com.denniseckerskorn.ejer03.PrincipalPila;
+import com.denniseckerskorn.ejer04.PrincipalCola;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,7 +28,8 @@ public class Main {
         System.out.println(valores);
          */
 
-        Principal principal = new Principal();
+        //PrincipalPila principal = new PrincipalPila();
+        PrincipalCola cola = new PrincipalCola();
 
     }
 }
