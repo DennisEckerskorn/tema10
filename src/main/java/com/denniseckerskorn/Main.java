@@ -1,5 +1,7 @@
 package com.denniseckerskorn;
 
+import com.denniseckerskorn.ejer03.Principal;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,8 @@ public class Main {
         Collection<String> valores = diccionario.values();
         System.out.println(valores);
          */
+
+        Principal principal = new Principal();
 
     }
 }
