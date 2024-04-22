@@ -2,6 +2,7 @@ package com.denniseckerskorn;
 
 import com.denniseckerskorn.ejer03.PrincipalPila;
 import com.denniseckerskorn.ejer04.PrincipalCola;
+import com.denniseckerskorn.ejer05.PrincipalCentroSalud;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,7 +30,7 @@ public class Main {
          */
 
         //PrincipalPila principal = new PrincipalPila();
-        PrincipalCola cola = new PrincipalCola();
-
+        //PrincipalCola cola = new PrincipalCola();
+        PrincipalCentroSalud principalCentroSalud = new PrincipalCentroSalud();
     }
 }
