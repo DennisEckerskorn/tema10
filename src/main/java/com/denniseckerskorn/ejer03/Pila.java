@@ -45,7 +45,7 @@ public class Pila<T> implements IPila<T> {
      * @throws IllegalStateException si la pila está vacía.
      */
     @Override
-    public T pop() {
+    public T pop() throws IllegalStateException{
         if (isEmpty()) {
             throw new IllegalStateException("The stack is empty");
         }
@@ -69,7 +69,7 @@ public class Pila<T> implements IPila<T> {
      * @throws IllegalStateException si la pila está vacía.
      */
     @Override
-    public T top() {
+    public T top() throws IllegalStateException {
         if (isEmpty()) {
             throw new IllegalStateException("The stack is empty");
         }
