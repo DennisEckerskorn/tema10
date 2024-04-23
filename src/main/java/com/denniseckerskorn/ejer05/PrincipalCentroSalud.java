@@ -1,11 +1,15 @@
 package com.denniseckerskorn.ejer05;
 
-import java.text.SimpleDateFormat;
-import java.util.SimpleTimeZone;
+import java.time.format.DateTimeParseException;
 
 public class PrincipalCentroSalud {
     public PrincipalCentroSalud() {
-        CentroSalud centroSalud = new CentroSalud();
-        System.out.println(centroSalud);
+
+        try{
+            CentroSalud centroSalud = new CentroSalud();
+            System.out.println(centroSalud);
+        }catch(DateTimeParseException dtpe) {
+            System.out.println("Formato errone");
+        }
     }
 }

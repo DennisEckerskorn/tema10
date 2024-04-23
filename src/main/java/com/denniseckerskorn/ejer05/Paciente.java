@@ -7,7 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Paciente {
-    public enum Sexo {M, F};
+    public enum Sexo {M, F}
+
+    ;
     private static int nextID = 1;
     private int id;
     private String nombre;
@@ -23,7 +25,7 @@ public class Paciente {
         this.nombre = nombre;
         this.apellido = apellido;
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.fechaNacimiento = (LocalDate) fmt.parse(fechaNacimiento);
+        this.fechaNacimiento = LocalDate.parse(fechaNacimiento, fmt);
         this.sexo = sexo;
         this.altura = altura;
         this.peso = peso;
@@ -57,8 +59,11 @@ public class Paciente {
         return peso;
     }
 
-
-    private int getEdad() {
+    /**
+     * Método que calcula la edad del paciente entre su fecha de nacimiento y la fecha actual.
+     * @return la edad en años y en números enteros.
+     */
+    public int getEdad() {
         LocalDate ahora = LocalDate.now();
         Period period = Period.between(fechaNacimiento, ahora);
         return period.getYears();
@@ -85,9 +90,10 @@ public class Paciente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
+                ", edad=" + getEdad() +
                 ", sexo=" + sexo +
                 ", altura=" + altura +
                 ", peso=" + peso +
-                '}';
+                '}' + "\n";
     }
 }
