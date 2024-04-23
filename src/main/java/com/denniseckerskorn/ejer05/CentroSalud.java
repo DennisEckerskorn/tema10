@@ -1,14 +1,33 @@
 package com.denniseckerskorn.ejer05;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class CentroSalud implements ICentroSalud {
     private ArrayList<Paciente> pacientes;
+    private int numPacientes;
 
     public CentroSalud() {
         pacientes = new ArrayList<>();
+        numPacientes = 0;
     }
+
+    public boolean addNuevoPaciente(String nombre, String apellido, Date fechaNacimiento, char sexo, float altura, float peso) {
+        if (numPacientes < pacientes.size()) {
+            pacientes.add(new Paciente(nombre, apellido, fechaNacimiento, sexo, altura, peso));
+            numPacientes++;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    private boolean addPacienteAleatorio(String nombre, String apellido, Date fechaNacimiento, char sexo, float altura, float peso) {
+
+    }
+     */
 
     @Override
     public int[] mayorMenor(ArrayList<Paciente> pacientes) {
