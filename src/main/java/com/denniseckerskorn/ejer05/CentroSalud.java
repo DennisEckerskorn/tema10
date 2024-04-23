@@ -5,6 +5,7 @@ import net.datafaker.Faker;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 /**
@@ -21,7 +22,7 @@ public class CentroSalud implements ICentroSalud {
     public CentroSalud() {
         pacientes = new ArrayList<>();
         numPacientes = 0;
-        addPacienteAleatorio(CANTIDAD_ALUMNOS);
+        //addPacienteAleatorio(CANTIDAD_ALUMNOS);
     }
 
     /**
@@ -36,9 +37,15 @@ public class CentroSalud implements ICentroSalud {
      * @return true si se agregó el paciente correctamente, false si no se pudo agregar.
      */
     public boolean addNuevoPaciente(String nombre, String apellido, String fechaNacimiento, Paciente.Sexo sexo, float altura, float peso) {
-        pacientes.add(new Paciente(nombre, apellido, fechaNacimiento, sexo, altura, peso));
-        numPacientes++;
-        return true;
+        try{
+            pacientes.add(new Paciente(nombre, apellido, fechaNacimiento, sexo, altura, peso));
+            numPacientes++;
+            return true;
+
+        } catch (DateTimeParseException dtpe) {
+            System.out.println("El formato de la fecha se ingresado mal (dd/MM/yyyy)");
+            return false;
+        }
     }
 
     /**
@@ -146,6 +153,14 @@ public class CentroSalud implements ICentroSalud {
             sb.append("IMC fuera de rango");
         }
         return sb.toString();
+    }
+
+    public ArrayList<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public int getNumPacientes() {
+        return numPacientes;
     }
 
     @Override
