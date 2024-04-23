@@ -5,6 +5,7 @@ import java.util.SimpleTimeZone;
 
 public class PrincipalCentroSalud {
     public PrincipalCentroSalud() {
-
+        CentroSalud centroSalud = new CentroSalud();
+        System.out.println(centroSalud);
     }
 }

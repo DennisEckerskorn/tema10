@@ -1,23 +1,29 @@
 package com.denniseckerskorn.ejer05;
 
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Paciente {
+    public enum Sexo {M, F};
     private static int nextID = 1;
     private int id;
     private String nombre;
     private String apellido;
-    private Date fechaNacimiento;
-    private char sexo;
+    private LocalDate fechaNacimiento;
+    private Sexo sexo;
     private float altura;
     private float peso;
 
 
-    public Paciente(String nombre, String apellido, Date fechaNacimiento, char sexo, float altura, float peso) {
+    public Paciente(String nombre, String apellido, String fechaNacimiento, Sexo sexo, float altura, float peso) throws DateTimeParseException {
         this.id = nextID++;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.fechaNacimiento = (LocalDate) fmt.parse(fechaNacimiento);
         this.sexo = sexo;
         this.altura = altura;
         this.peso = peso;
@@ -35,11 +41,11 @@ public class Paciente {
         return apellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public char getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
@@ -51,11 +57,12 @@ public class Paciente {
         return peso;
     }
 
-    /* TODO: Method not implemented yet...
-    private int calcularEdadEnAnyos(String fechaNacimiento) {
-        return 0;
+
+    private int getEdad() {
+        LocalDate ahora = LocalDate.now();
+        Period period = Period.between(fechaNacimiento, ahora);
+        return period.getYears();
     }
-     */
 
     @Override
     public boolean equals(Object o) {

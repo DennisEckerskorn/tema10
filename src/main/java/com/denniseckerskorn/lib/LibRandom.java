@@ -33,6 +33,10 @@ public class LibRandom {
         return rnd.nextDouble() * (max - min) + min;
     }
 
+    public static float randomFloat(float min, float max) {
+        return rnd.nextFloat() * (max - min) + min;
+    }
+
     /**
      * Method to generate a random char from the ASCII Table.
      * Upper Case letters: 65 - 90
