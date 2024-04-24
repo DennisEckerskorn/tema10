@@ -4,6 +4,7 @@ import com.denniseckerskorn.ejer03.PrincipalPila;
 import com.denniseckerskorn.ejer04.PrincipalCola;
 import com.denniseckerskorn.ejer05.PrincipalCentroSalud;
 import com.denniseckerskorn.ejer06.MenuTraductor;
+import com.denniseckerskorn.ejer07.MenuDivisas;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,6 +35,7 @@ public class Main {
         //PrincipalCola cola = new PrincipalCola();
         //PrincipalCentroSalud principalCentroSalud = new PrincipalCentroSalud();
 
-        MenuTraductor menuTraductor = new MenuTraductor();
+        //MenuTraductor menuTraductor = new MenuTraductor();
+        MenuDivisas menuDivisas = new MenuDivisas();
     }
 }

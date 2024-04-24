@@ -14,4 +14,8 @@ public enum Moneda {
     CUP,
     DOP,
     MXN;
+
+    Moneda() {
+
+    }
 }

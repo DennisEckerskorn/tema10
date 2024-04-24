@@ -15,7 +15,15 @@ public class MapDivisas {
         divisas.put(moneda, cotizacion);
     }
 
-    public double divisaAEuros(Moneda moneda) {
+    public double getDivisa(Moneda moneda) {
         return divisas.get(moneda);
+    }
+
+    public Map<Moneda, Double> getDivisas() {
+        return divisas;
+    }
+
+    public Moneda getMoneda() {
+        return moneda;
     }
 }

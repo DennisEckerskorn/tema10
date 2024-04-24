@@ -25,14 +25,14 @@ public class LibIO {
         String result = "";
         do {
             System.out.println(message);
-            try{
+            try {
                 result = LECTOR.nextLine().trim().toLowerCase();
                 valid = result.equals("true") || result.equals("false");
                 if (!valid) {
                     System.out.println("Error, only true or false");
                 }
 
-            }catch(NoSuchElementException nee) {
+            } catch (NoSuchElementException nee) {
                 System.out.println("There is no input, please introduce 'true' or 'false'");
             }
         } while (!valid);
@@ -50,13 +50,13 @@ public class LibIO {
         String result = "";
         do {
             System.out.println(message);
-            try{
+            try {
                 result = LECTOR.nextLine().trim().toLowerCase();
                 valid = result.equals("si") || result.equals("no");
                 if (!valid) {
                     System.out.println("Error, solo 'si' o 'no' son permitidos");
                 }
-            }catch (NoSuchElementException nsee) {
+            } catch (NoSuchElementException nsee) {
                 System.out.println("No hay entrada. Introduce un si o no");
             }
         } while (!valid);
@@ -81,8 +81,15 @@ public class LibIO {
      * @return int introduced by user.
      */
     public static int requestInt(String message) {
-        System.out.println(message);
-        return Integer.parseInt(LECTOR.nextLine());
+        int res = 0;
+        try {
+            System.out.println(message);
+            res = Integer.parseInt(LECTOR.nextLine());
+
+        } catch (NumberFormatException nfe) {
+            System.out.println("Solo se permiten introducir números.");
+        }
+        return res;
     }
 
     /**
@@ -386,15 +393,15 @@ public class LibIO {
      * Solicita al usuario ingresar una fecha dentro de un rango específico, utilizando el mensaje proporcionado y el formato especificado por SimpleDateFormat(dd/MM/yyyy).
      * minDate y maxDate se pasan como en el siguiente ejemplo:
      * Date minDate = null;
-     *  try{
-     *      minDate = sdf.parse(date);
-     *  }catch(ParseException e) {
-     *  }
+     * try{
+     * minDate = sdf.parse(date);
+     * }catch(ParseException e) {
+     * }
      *
-     * @param mensaje  El mensaje que se muestra al usuario para solicitar la fecha.
-     * @param format   El formato que se utilizará para parsear la fecha.
-     * @param minDate  La fecha mínima permitida para ingresar (inclusive). Puede ser null si no hay una fecha mínima específica.
-     * @param maxDate  La fecha máxima permitida para ingresar (inclusive). Puede ser null si no hay una fecha máxima específica.
+     * @param mensaje El mensaje que se muestra al usuario para solicitar la fecha.
+     * @param format  El formato que se utilizará para parsear la fecha.
+     * @param minDate La fecha mínima permitida para ingresar (inclusive). Puede ser null si no hay una fecha mínima específica.
+     * @param maxDate La fecha máxima permitida para ingresar (inclusive). Puede ser null si no hay una fecha máxima específica.
      * @return La fecha ingresada por el usuario dentro del rango especificado.
      * @throws RuntimeException Si ocurre un error al parsear la fecha o si la entrada no es una fecha válida.
      */
