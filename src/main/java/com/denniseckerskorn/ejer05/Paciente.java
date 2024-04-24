@@ -7,17 +7,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Paciente {
-    public enum Sexo {M, F}
-
-    ;
+    public enum Sexo {
+        M,
+        F};
     private static int nextID = 1;
-    private int id;
-    private String nombre;
-    private String apellido;
-    private LocalDate fechaNacimiento;
-    private Sexo sexo;
-    private float altura;
-    private float peso;
+    private final int id;
+    private final String nombre;
+    private final String apellido;
+    private final LocalDate fechaNacimiento;
+    private final Sexo sexo;
+    private final float altura;
+    private final float peso;
 
 
     public Paciente(String nombre, String apellido, String fechaNacimiento, Sexo sexo, float altura, float peso) throws DateTimeParseException {

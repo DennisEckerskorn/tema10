@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class CentroSalud implements ICentroSalud {
     private static final int CANTIDAD_ALUMNOS = 50;
-    private ArrayList<Paciente> pacientes;
+    private final ArrayList<Paciente> pacientes;
     private int numPacientes;
 
     /**
@@ -43,7 +43,7 @@ public class CentroSalud implements ICentroSalud {
             return true;
 
         } catch (DateTimeParseException dtpe) {
-            System.out.println("El formato de la fecha se ingresado mal (dd/MM/yyyy)");
+            System.out.println("El formato de la fecha se ha ingresado mal (dd/MM/yyyy)");
             return false;
         }
     }
