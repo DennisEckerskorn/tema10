@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
  * Class representing a simple dictionary.
  */
 public class Dictionary {
-    private Map<String, String> dictionary;
+    private final Map<String, String> dictionary;
 
     /**
      * Default constructor that initializes the dictionary with a HashMap.
