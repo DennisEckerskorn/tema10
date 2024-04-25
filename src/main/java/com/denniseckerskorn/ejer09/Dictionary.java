@@ -1,16 +1,12 @@
-package com.denniseckerskorn.ejer08;
+package com.denniseckerskorn.ejer09;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Class representing a simple dictionary.
  */
 public class Dictionary {
-    private final
-
-    Map<String, String> dictionary;
+    private final Map<String, String> dictionary;
 
     /**
      * Default constructor that initializes the dictionary with a HashMap.
@@ -42,7 +38,7 @@ public class Dictionary {
      * @return The definition of the specified word.
      * @throws NoSuchElementException if the specified word does not exist in the dictionary.
      */
-    public String getWord(String word) throws NoSuchElementException {
+    public String get(String word) throws NoSuchElementException {
         String definition = dictionary.get(word);
         if (definition == null) {
             throw new NoSuchElementException("The specified word does not exist in the dictionary");
@@ -93,10 +89,12 @@ public class Dictionary {
     public String showDictionary() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> e : dictionary.entrySet()) {
-            sb.append(e.getKey()).append(" - ").append(e.getValue());
+            sb.append(e.getKey()).append(" - ").append(e.getValue()).append("\n");
         }
         return sb.toString();
     }
 
-
+    public List<String> getKeys() {
+        return new ArrayList<>(dictionary.keySet());
+    }
 }

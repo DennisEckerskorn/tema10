@@ -2,6 +2,7 @@ package com.denniseckerskorn.ejer07;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapDivisas {
     private final Map<Moneda, Double> divisas;
@@ -25,5 +26,20 @@ public class MapDivisas {
 
     public Moneda getMoneda() {
         return moneda;
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MapDivisas that)) return false;
+
+        return divisas.equals(that.divisas) && moneda == that.moneda;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = divisas.hashCode();
+        result = 31 * result + Objects.hashCode(moneda);
+        return result;
     }
 }
