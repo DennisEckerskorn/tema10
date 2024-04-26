@@ -39,6 +39,7 @@ public class Main {
         //MenuTraductor menuTraductor = new MenuTraductor();
         //MenuDivisas menuDivisas = new MenuDivisas();
         //MenuDictionary menuDictionary = new MenuDictionary();
-        MenuDictionary menuDictionary2 = new MenuDictionary();
+        //MenuDictionary menuDictionary2 = new MenuDictionary();
+
     }
 }
