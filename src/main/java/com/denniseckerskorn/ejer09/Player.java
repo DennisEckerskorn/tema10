@@ -14,10 +14,10 @@ public class Player {
      *
      * @param name Player name
      */
-    public Player(String name) {
+    public Player(String name, int points) {
         this.id = nextID++;
         this.name = name;
-        this.points = 0;
+        this.points = points;
     }
 
     public int getId() {

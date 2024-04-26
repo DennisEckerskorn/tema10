@@ -24,12 +24,38 @@ public class DictionaryGame {
      * @param name The name of the player to add.
      * @return true if the player was successfully added, false otherwise.
      */
-    public boolean addPlayer(String name) {
+    public boolean addPlayer(String name, int points) {
         if (players != null) {
-            players.add(new Player(name));
+            players.add(new Player(name, points));
             return true;
         }
         return false;
+    }
+
+    public void organizePlayerList() {
+        if (players != null && players.size() > 1) {
+            bubbleSort(players);
+        }
+    }
+
+    private void bubbleSort(List<Player> players) {
+        for (int i = 0; i < players.size() - 1; i++) {
+            for (int j = 0; j < players.size() - i - 1; j++) {
+                if (players.get(j).getPoints() < players.get(j + 1).getPoints()) {
+                    Player temp = players.get(j);
+                    players.set(j, players.get(j + 1));
+                    players.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public String topPlayerList() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < players.size(); i++) {
+            sb.append(i).append(players.get(i).getName()).append(players.get(i).getPoints()).append("\n");
+        }
+        return sb.toString();
     }
 
     /**
@@ -67,9 +93,9 @@ public class DictionaryGame {
      * @return A random word from the dictionary.
      * @throws IllegalStateException if dictionary is empty.
      */
-    private String getRandomWord() throws IllegalStateException{
+    private String getRandomWord() throws IllegalStateException {
         List<String> randomDef = dictionary.getKeys();
-        if(!randomDef.isEmpty()) {
+        if (!randomDef.isEmpty()) {
             return randomDef.get(rnd.nextInt(randomDef.size()));
         } else {
             throw new IllegalStateException("The dictionary is empty. Can't generate a random word");
@@ -77,7 +103,7 @@ public class DictionaryGame {
     }
 
     public Player getCurrentPlayer() {
-        if(currentPlayerIndex >= 0 && currentPlayerIndex < players.size()) {
+        if (currentPlayerIndex >= 0 && currentPlayerIndex < players.size()) {
             return players.get(currentPlayerIndex);
         } else {
             return null;
