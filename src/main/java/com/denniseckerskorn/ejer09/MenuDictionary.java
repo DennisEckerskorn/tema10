@@ -139,7 +139,8 @@ public class MenuDictionary {
 
     private void topPlayers() {
         game.organizePlayerList();
-        game.topPlayerList();
+        String playerList = game.topPlayerList();
+        System.out.println(playerList);
     }
 
     /**

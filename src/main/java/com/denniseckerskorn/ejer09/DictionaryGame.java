@@ -53,7 +53,7 @@ public class DictionaryGame {
     public String topPlayerList() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < players.size(); i++) {
-            sb.append(i).append(players.get(i).getName()).append(players.get(i).getPoints()).append("\n");
+            sb.append(i + 1).append(". ").append(players.get(i).getName()).append(" - ").append(players.get(i).getPoints()).append("\n");
         }
         return sb.toString();
     }
