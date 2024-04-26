@@ -41,7 +41,7 @@ public class Empleado {
         return apellidos;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
