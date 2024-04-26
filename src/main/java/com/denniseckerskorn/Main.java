@@ -6,6 +6,7 @@ import com.denniseckerskorn.ejer05.PrincipalCentroSalud;
 import com.denniseckerskorn.ejer06.MenuTraductor;
 import com.denniseckerskorn.ejer07.MenuDivisas;
 import com.denniseckerskorn.ejer09.MenuDictionary;
+import com.denniseckerskorn.ejer10.MenuEmpresa;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,6 +41,6 @@ public class Main {
         //MenuDivisas menuDivisas = new MenuDivisas();
         //MenuDictionary menuDictionary = new MenuDictionary();
         //MenuDictionary menuDictionary2 = new MenuDictionary();
-
+        MenuEmpresa menuEmpresa = new MenuEmpresa();
     }
 }
