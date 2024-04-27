@@ -2,27 +2,25 @@ package com.denniseckerskorn.ejer10;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Empleado {
-    private final List<Hijo> hijos;
+    private List<Hijo> hijos;
     private final String dni;
     private final String nombre;
     private final String apellidos;
     private final LocalDate fechaNacimiento;
-    private final float sueldo;
-    private final int cantidadHijos;
+    private float sueldo;
+    private int cantidadHijos;
 
-    public Empleado(String dni, String nombre, String apellidos, String fechaNacimiento, float sueldo, int cantidadHijos) throws DateTimeParseException {
+    public Empleado(String dni, String nombre, String apellidos, LocalDate fechaNacimiento, float sueldo, int cantidadHijos) {
         this.hijos = new ArrayList<>();
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.fechaNacimiento = LocalDate.parse(fechaNacimiento, dtf);
+        this.fechaNacimiento = fechaNacimiento;
         this.sueldo = sueldo;
         this.cantidadHijos = cantidadHijos;
     }
@@ -55,6 +53,18 @@ public class Empleado {
         return cantidadHijos;
     }
 
+    public void setSueldo(float nuevoSueldo) {
+        sueldo = nuevoSueldo;
+    }
+
+    public void incrementaCantidadHijosEmpleado() {
+        cantidadHijos += 1;
+    }
+
+    public void decrementaCantidadHijosEmpleado() {
+        cantidadHijos -= 1;
+    }
+
     /**
      * Método que calcula la edad a partir de la fecha de nacimiento.
      *
@@ -66,14 +76,29 @@ public class Empleado {
         return period.getYears();
     }
 
-    public boolean addHijo(String nombre, String fechaNacimiento) {
-        try {
+    public boolean addHijo(String nombre, LocalDate fechaNacimiento) {
+        if (hijos != null) {
             hijos.add(new Hijo(nombre, fechaNacimiento));
             return true;
-        } catch (DateTimeParseException dtpe) {
-            System.out.println("El formato de la fecha se ha introducido incorrectamente, dd/MM/yyyy");
-            return false;
         }
+        return false;
+    }
+
+    /**
+     * Elimina el array de hijos y totalmente poniendolo a null.
+     */
+    public void removeHijosList() {
+        hijos = null;
+    }
+
+    public boolean removeHijo(String nombreHijo) {
+        for (int i = 0; i < hijos.size(); i++) {
+            if (hijos.get(i).getNombre().equals(nombreHijo)) {
+                hijos.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

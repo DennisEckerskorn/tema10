@@ -1,11 +1,13 @@
 package com.denniseckerskorn.lib;
 
-import java.awt.font.NumericShaper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 //Library which includes general methods for INPUT/OUTPUT.
 public class LibIO {
@@ -424,4 +426,59 @@ public class LibIO {
         } while (!valid);
         return fecha;
     }
+
+    /**
+     * Solicita al usuario ingresar una fecha utilizando el mensaje proporcionado y el formato especificado por DateTimeFormatter (dd/MM/yyyy).
+     *
+     * @param mensaje El mensaje que se muestra al usuario para solicitar la fecha.
+     * @param format  El formato que se utilizará para parsear la fecha.
+     * @return La fecha ingresada por el usuario.
+     * @throws RuntimeException Si ocurre un error al parsear la fecha o si la entrada no es una fecha válida.
+     */
+    public static LocalDate solicitarFechaLocalDate(String mensaje, DateTimeFormatter format) {
+        boolean valido = false;
+        LocalDate fecha = null;
+        do {
+            System.out.println(mensaje);
+            String fechaStr = LECTOR.nextLine();
+            try {
+                fecha = LocalDate.parse(fechaStr, format);
+                valido = true;
+            } catch (DateTimeParseException dtpe) {
+                System.out.println("La entrada no es válida");
+            }
+        } while (!valido);
+        return fecha;
+    }
+
+    /**
+     * Solicita al usuario ingresar una fecha dentro de un rango específico, utilizando el mensaje proporcionado y el formato especificado por DateTimeFormatter (dd/MM/yyyy).
+     *
+     * @param mensaje El mensaje que se muestra al usuario para solicitar la fecha.
+     * @param format  El formato que se utilizará para parsear la fecha.
+     * @param minDate La fecha mínima permitida para ingresar (inclusive). Puede ser null si no hay una fecha mínima específica.
+     * @param maxDate La fecha máxima permitida para ingresar (inclusive). Puede ser null si no hay una fecha máxima específica.
+     * @return La fecha ingresada por el usuario dentro del rango especificado.
+     * @throws RuntimeException Si ocurre un error al parsear la fecha o si la entrada no es una fecha válida.
+     */
+    public static LocalDate solicitarFechaLocalDate(String mensaje, DateTimeFormatter format, LocalDate minDate, LocalDate maxDate) {
+        boolean valido = false;
+        LocalDate fecha = null;
+        do {
+            System.out.println(mensaje);
+            String fechaStr = LECTOR.nextLine();
+            try {
+                fecha = LocalDate.parse(fechaStr, format);
+                if ((minDate == null || !fecha.isBefore(minDate)) && (maxDate == null || !fecha.isAfter(maxDate))) {
+                    valido = true;
+                } else {
+                    System.out.println("La fecha no está dentro del rango");
+                }
+            } catch (DateTimeParseException dtpe) {
+                System.out.println("El formato de la fecha no es válido");
+            }
+        } while (!valido);
+        return fecha;
+    }
 }
+

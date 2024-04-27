@@ -9,10 +9,9 @@ public class Hijo {
     private final String nombre;
     private final LocalDate fechaNacimiento;
 
-    public Hijo(String nombre, String fechaNacimiento) throws DateTimeParseException {
+    public Hijo(String nombre, LocalDate fechaNacimiento) {
         this.nombre = nombre;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.fechaNacimiento = LocalDate.parse(fechaNacimiento, dtf);
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getNombre() {
@@ -25,6 +24,7 @@ public class Hijo {
 
     /**
      * Método que calcula la edad a paritir de la fecha de nacimiento.
+     *
      * @return la edad en números enteros.
      */
     public int getEdadHijo() {

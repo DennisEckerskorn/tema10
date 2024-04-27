@@ -1,5 +1,6 @@
 package com.denniseckerskorn.ejer10;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ public class Empresa {
     }
 
     /**
-     * Método que añade un nuevo empleado al array de empleados, si tiene hijos tambien los añadira al array de hijos del empleado.
+     * Método que añade un nuevo empleado a la lista de empleados
+     *
      * @param dni
      * @param nombre
      * @param apellidos
@@ -21,16 +23,36 @@ public class Empresa {
      * @param cantidadHijos
      * @return
      */
-    public Empleado addNuevoEmpleado(String dni, String nombre, String apellidos, String fechaNacimiento, float sueldo, int cantidadHijos) {
-        try {
+    public Empleado addNuevoEmpleado(String dni, String nombre, String apellidos, LocalDate fechaNacimiento, float sueldo, int cantidadHijos) {
+        if (empleados != null) {
             Empleado nuevoEmpleado = new Empleado(dni, nombre, apellidos, fechaNacimiento, sueldo, cantidadHijos);
             empleados.add(nuevoEmpleado);
             return nuevoEmpleado;
-        } catch (DateTimeParseException dtpe) {
-            System.out.println("El formato de la fecha se ha introducido incorrectamente, dd/MM/yyyy");
-            return null;
         }
+        return null;
     }
+
+    /**
+     * Obtiene el empleado a partir del DNI proporcionado.
+     *
+     * @param dni
+     * @return
+     */
+    public Empleado obtenerEmpleadoPorDNI(String dni) {
+        for (int i = 0; i < empleados.size(); i++) {
+            if (empleados.get(i).getDni().equals(dni)) {
+                return empleados.get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean borrarEmpleado(Empleado empleado) {
+        empleado.removeHijosList();
+        return empleados.remove(empleado);
+    }
+
+
 
     @Override
     public String toString() {
