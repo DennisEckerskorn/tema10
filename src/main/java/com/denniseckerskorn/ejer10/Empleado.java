@@ -66,7 +66,7 @@ public class Empleado {
         return period.getYears();
     }
 
-    public boolean addHijo(int cantidadHijos, String nombre, String fechaNacimiento) {
+    public boolean addHijo(String nombre, String fechaNacimiento) {
         try {
             hijos.add(new Hijo(nombre, fechaNacimiento));
             return true;
@@ -99,6 +99,7 @@ public class Empleado {
                 ", apellidos='" + apellidos + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", sueldo=" + sueldo +
+                ", cantidadHijos=" + cantidadHijos +
                 '}';
     }
 }

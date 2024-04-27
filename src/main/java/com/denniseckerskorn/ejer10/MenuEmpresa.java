@@ -1,12 +1,17 @@
 package com.denniseckerskorn.ejer10;
 
 import com.denniseckerskorn.lib.ConsoleMenu;
+import com.denniseckerskorn.lib.LibIO;
 
 public class MenuEmpresa {
     private ConsoleMenu menu;
     private ConsoleMenu menuConsultas;
+    private Empresa empresa;
+    private Empleado empleadoActual;
+    private Hijo hijo;
 
     public MenuEmpresa() {
+        empresa = new Empresa();
         menu = new ConsoleMenu("GESTIÓN EMPLEADOS");
         menu.addOpcion("Nuevo Empleado");
         menu.addOpcion("Nuevo hijo");
@@ -34,6 +39,9 @@ public class MenuEmpresa {
             opcion = menu.mostrarMenuInt();
             switch (opcion) {
                 case 1: //Nuevo empleado
+                    addNuevoEmpleado();
+                    System.out.println(empresa.toString());
+                    System.out.println(empleadoActual.toString());
                     break;
                 case 2: //Nuevo hijo
                     break;
@@ -74,6 +82,26 @@ public class MenuEmpresa {
             default:
                 System.out.println("Numero no es válido");
                 break;
+        }
+    }
+
+    private void addNuevoEmpleado() {
+        String dni = LibIO.requestString("Ingresa el DNI del empleado:", 8,9);
+        String nombre = LibIO.requestString("Ingresa el nombre del empleado: ", 3, 20);
+        String apellidos = LibIO.requestString("Ingresa los apellidos del empleado: ", 3, 20);
+        String fechaNacimiento = LibIO.requestString("Ingresa la fecha de nacimiento del Empleado",10,10); //TODO: Cambiar a date y validar formato
+        float sueldo = LibIO.requestFloat("Ingresa el sueldo del empleado:", 600, 4000);
+        int cantidadHijos = LibIO.requestInt("¿Cuantos hijos tiene el empleado?", 0, 20);
+
+        if(cantidadHijos > 0) {
+            empleadoActual = empresa.addNuevoEmpleado(dni, nombre, apellidos, fechaNacimiento, sueldo, cantidadHijos);
+            for(int i = 0; i < cantidadHijos; i++) {
+                String nombreHijo = LibIO.requestString("Ingresa el nombre del hijo:", 3, 20);
+                String fechaNacimientoHijo = LibIO.requestString("Ingresa la fecha de nacimiento del hijo",10,10); //TODO: Cambiar a date y validar formato
+                empleadoActual.addHijo(nombreHijo, fechaNacimientoHijo);
+            }
+        } else {
+            empleadoActual = empresa.addNuevoEmpleado(dni, nombre, apellidos, fechaNacimiento, sueldo, cantidadHijos);
         }
     }
 }
