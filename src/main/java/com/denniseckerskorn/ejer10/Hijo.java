@@ -1,6 +1,7 @@
 package com.denniseckerskorn.ejer10;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -20,6 +21,16 @@ public class Hijo {
 
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
+    }
+
+    /**
+     * Método que calcula la edad a paritir de la fecha de nacimiento.
+     * @return la edad en números enteros.
+     */
+    public int getEdadHijo() {
+        LocalDate ahora = LocalDate.now();
+        Period period = Period.between(fechaNacimiento, ahora);
+        return period.getYears();
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.denniseckerskorn.ejer10;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Empleado {
@@ -14,8 +14,9 @@ public class Empleado {
     private final String apellidos;
     private final LocalDate fechaNacimiento;
     private final float sueldo;
+    private final int cantidadHijos;
 
-    public Empleado(String dni, String nombre, String apellidos, String fechaNacimiento, float sueldo) throws DateTimeParseException {
+    public Empleado(String dni, String nombre, String apellidos, String fechaNacimiento, float sueldo, int cantidadHijos) throws DateTimeParseException {
         this.hijos = new ArrayList<>();
         this.dni = dni;
         this.nombre = nombre;
@@ -23,6 +24,7 @@ public class Empleado {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.fechaNacimiento = LocalDate.parse(fechaNacimiento, dtf);
         this.sueldo = sueldo;
+        this.cantidadHijos = cantidadHijos;
     }
 
     public List<Hijo> getHijos() {
@@ -47,6 +49,31 @@ public class Empleado {
 
     public float getSueldo() {
         return sueldo;
+    }
+
+    public int getCantidadHijos() {
+        return cantidadHijos;
+    }
+
+    /**
+     * Método que calcula la edad a partir de la fecha de nacimiento.
+     *
+     * @return la edad en números enteros.
+     */
+    public int getEdadEmpleado() {
+        LocalDate ahora = LocalDate.now();
+        Period period = Period.between(fechaNacimiento, ahora);
+        return period.getYears();
+    }
+
+    public boolean addHijo(int cantidadHijos, String nombre, String fechaNacimiento) {
+        try {
+            hijos.add(new Hijo(nombre, fechaNacimiento));
+            return true;
+        } catch (DateTimeParseException dtpe) {
+            System.out.println("El formato de la fecha se ha introducido incorrectamente, dd/MM/yyyy");
+            return false;
+        }
     }
 
     @Override

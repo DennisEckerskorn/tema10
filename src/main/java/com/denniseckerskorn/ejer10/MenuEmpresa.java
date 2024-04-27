@@ -24,6 +24,8 @@ public class MenuEmpresa {
         menuConsultas.addOpcion("Buscar por hijos menores de edad");
         menuConsultas.addOpcion("Volver al menú principal");
 
+        mainMenu();
+
     }
 
     private void mainMenu() {
@@ -31,20 +33,21 @@ public class MenuEmpresa {
         do {
             opcion = menu.mostrarMenuInt();
             switch (opcion) {
-                case 1:
+                case 1: //Nuevo empleado
                     break;
-                case 2:
+                case 2: //Nuevo hijo
                     break;
-                case 3:
+                case 3: //Modificar Sueldo
                     break;
-                case 4:
+                case 4: //Borrar empleado
                     break;
-                case 5:
+                case 5: //Borrar hijo
                     break;
-                case 6:
+                case 6: //Menu consultas
                     menuConsultas();
                     break;
-                case 7:
+                case 7: //Salir del programa
+                    System.out.println("Leaving the program, see you soon...");
                     break;
                 default:
                     System.out.println("Numero no es válido");
@@ -56,18 +59,18 @@ public class MenuEmpresa {
     private void menuConsultas() {
         int opcion = menuConsultas.mostrarMenuInt();
         switch (opcion) {
-            case 1:
+            case 1: //Buscar por NIF
                 break;
-            case 2:
+            case 2: //Buscar por nombre
                 break;
-            case 3:
+            case 3: //Buscar por rango de edad
                 break;
-            case 4:
+            case 4: //Buscar por rango de sueldo
                 break;
-            case 5:
+            case 5: //Buscar por hijos menores de edad
                 break;
-            case 6:
-                mainMenu();
+            case 6: //Salir del menuConsultas y volver al menu principal
+                return;
             default:
                 System.out.println("Numero no es válido");
                 break;
