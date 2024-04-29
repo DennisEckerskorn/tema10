@@ -123,8 +123,9 @@ public class Empleado {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
+                ", edad=" + getEdadEmpleado() +
                 ", sueldo=" + sueldo +
                 ", cantidadHijos=" + cantidadHijos +
-                '}';
+                '}' + "\n";
     }
 }

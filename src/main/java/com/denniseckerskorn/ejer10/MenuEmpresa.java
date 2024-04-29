@@ -5,6 +5,9 @@ import com.denniseckerskorn.lib.LibIO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MenuEmpresa {
     private ConsoleMenu menu;
@@ -32,64 +35,78 @@ public class MenuEmpresa {
         menuConsultas.addOpcion("Buscar por hijos menores de edad");
         menuConsultas.addOpcion("Volver al menú principal");
 
+        System.out.println(empresa.toString());
         mainMenu();
 
     }
 
     private void mainMenu() {
-        int opcion;
+        int opcion = 0;
         do {
-            opcion = menu.mostrarMenuInt();
-            switch (opcion) {
-                case 1: //Nuevo empleado
-                    addNuevoEmpleado();
-                    System.out.println(empresa.toString());
-                    System.out.println(empleadoActual.toString());
-                    break;
-                case 2: //Nuevo hijo
-                    addHijoAEmpleadoExistente();
-                    break;
-                case 3: //Modificar Sueldo
-                    modificarSueldoEmpleado();
-                    break;
-                case 4: //Borrar empleado
-                    borrarEmpleado();
-                    break;
-                case 5: //Borrar hijo
-                    borrarHijo();
-                    break;
-                case 6: //Menu consultas
-                    menuConsultas();
-                    break;
-                case 7: //Salir del programa
-                    System.out.println("Leaving the program, see you soon...");
-                    break;
-                default:
-                    System.out.println("Numero no es válido");
-                    break;
+            try {
+                opcion = menu.mostrarMenuInt();
+                switch (opcion) {
+                    case 1: //Nuevo empleado
+                        addNuevoEmpleado();
+                        System.out.println(empresa.toString());
+                        System.out.println(empleadoActual.toString());
+                        break;
+                    case 2: //Nuevo hijo
+                        addHijoAEmpleadoExistente();
+                        break;
+                    case 3: //Modificar Sueldo
+                        modificarSueldoEmpleado();
+                        break;
+                    case 4: //Borrar empleado
+                        borrarEmpleado();
+                        break;
+                    case 5: //Borrar hijo
+                        borrarHijo();
+                        break;
+                    case 6: //Menu consultas
+                        menuConsultas();
+                        break;
+                    case 7: //Salir del programa
+                        System.out.println("Leaving the program, see you soon...");
+                        break;
+                    default:
+                        System.out.println("Numero no es válido");
+                        break;
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("El valor ingresado no es un número, por favor introduce un número");
             }
         } while (opcion != 7);
     }
 
     private void menuConsultas() {
-        int opcion = menuConsultas.mostrarMenuInt();
-        switch (opcion) {
-            case 1: //Buscar por DNI
-                buscarPorDNI();
-                break;
-            case 2: //Buscar por nombre
-                break;
-            case 3: //Buscar por rango de edad
-                break;
-            case 4: //Buscar por rango de sueldo
-                break;
-            case 5: //Buscar por hijos menores de edad
-                break;
-            case 6: //Salir del menuConsultas y volver al menu principal
-                return;
-            default:
-                System.out.println("Numero no es válido");
-                break;
+        try {
+
+
+            int opcion = menuConsultas.mostrarMenuInt();
+            switch (opcion) {
+                case 1: //Buscar por DNI
+                    buscarPorDNI();
+                    break;
+                case 2: //Buscar por nombre
+                    buscarPorNombre();
+                    break;
+                case 3: //Buscar por rango de edad
+                    buscarPorRangoEdad();
+                    break;
+                case 4: //Buscar por rango de sueldo
+                    buscarPorRangoSueldos();
+                    break;
+                case 5: //Buscar por hijos menores de edad
+                    break;
+                case 6: //Salir del menuConsultas y volver al menu principal
+                    return;
+                default:
+                    System.out.println("Numero no es válido");
+                    break;
+            }
+        } catch (NumberFormatException nfe) {
+            System.out.println("El valor ingresado no es un número, por favor introduce un número");
         }
     }
 
@@ -174,8 +191,34 @@ public class MenuEmpresa {
     private void buscarPorDNI() {
         String dni = LibIO.requestString("Ingresa el DNI del Empleado buscado:", 8, 9);
         empleadoActual = empresa.obtenerEmpleadoPorDNI(dni);
-        if(empleadoActual != null) {
+        if (empleadoActual != null) {
             System.out.println(empleadoActual);
+        } else {
+            System.out.println("El empleado con DNI " + dni + " no existe");
         }
+    }
+
+    private void buscarPorNombre() {
+        String nombre = LibIO.requestString("Ingresa el nombre del Empleado buscado:", 3, 20);
+        empleadoActual = empresa.obtenerEmpleadoPorNombre(nombre);
+        if (empleadoActual != null) {
+            System.out.println("El empleado buscado es: " + empleadoActual);
+        } else {
+            System.out.println("No se ha encontrado al empleado con nombre: " + nombre);
+        }
+    }
+
+    private void buscarPorRangoEdad() {
+        int edadMin = LibIO.requestInt("Ingresa la edad mínima a buscar", 0, 110);
+        int edadMax = LibIO.requestInt("Ingresa la edad máxima a buscar", 0, 110);
+        List<Empleado> resultadoEdades = empresa.obtenerEmpleadosPorRangoEdad(edadMin, edadMax);
+        System.out.println(Arrays.toString(resultadoEdades.toArray()));
+    }
+
+    private void buscarPorRangoSueldos() {
+        float sueldoMin = LibIO.requestFloat("Ingresa el Sueldo mínimo a buscar:", 0, 4000);
+        float sueldoMax = LibIO.requestFloat("Ingresa el Sueldo máximo a buscar", 0, 4000);
+        List<Empleado> resultadoSueldos = empresa.obtenerEmpleadosPorSueldo(sueldoMin, sueldoMax);
+        System.out.println(Arrays.toString(resultadoSueldos.toArray()));
     }
 }

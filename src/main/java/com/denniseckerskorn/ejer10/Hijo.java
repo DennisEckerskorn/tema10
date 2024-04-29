@@ -54,6 +54,7 @@ public class Hijo {
         return "Hijo{" +
                 "nombre='" + nombre + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
+                ", edad=" + getEdadHijo() +
                 '}';
     }
 }
