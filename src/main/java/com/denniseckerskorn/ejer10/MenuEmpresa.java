@@ -81,8 +81,6 @@ public class MenuEmpresa {
 
     private void menuConsultas() {
         try {
-
-
             int opcion = menuConsultas.mostrarMenuInt();
             switch (opcion) {
                 case 1: //Buscar por DNI
@@ -98,6 +96,7 @@ public class MenuEmpresa {
                     buscarPorRangoSueldos();
                     break;
                 case 5: //Buscar por hijos menores de edad
+                    buscarPorRangoHijosMenoresEdad();
                     break;
                 case 6: //Salir del menuConsultas y volver al menu principal
                     return;
@@ -220,5 +219,11 @@ public class MenuEmpresa {
         float sueldoMax = LibIO.requestFloat("Ingresa el Sueldo máximo a buscar", 0, 4000);
         List<Empleado> resultadoSueldos = empresa.obtenerEmpleadosPorSueldo(sueldoMin, sueldoMax);
         System.out.println(Arrays.toString(resultadoSueldos.toArray()));
+    }
+
+    private void buscarPorRangoHijosMenoresEdad() {
+        System.out.println("Los empleados que tienen hijos menores de edad, son:");
+        List<Empleado> resultadoHijosMenores = empresa.obtenerEmpleadosHijosMenoresEdad();
+        System.out.println(Arrays.toString(resultadoHijosMenores.toArray()));
     }
 }

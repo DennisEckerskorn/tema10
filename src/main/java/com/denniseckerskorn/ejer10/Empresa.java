@@ -108,14 +108,15 @@ public class Empresa {
         return rangoSueldos;
     }
 
-    //TODO: Needs correcting and testing
     public List<Empleado> obtenerEmpleadosHijosMenoresEdad() {
         List<Empleado> hijosMenoresEdad = new ArrayList<>();
         for (int i = 0; i < empleados.size(); i++) {
             if (empleados.get(i).getHijos() != null) {
-                for (int j = 0; j < empleados.get(j).getHijos().size(); j++) {
-                    if (empleados.get(j).getHijos().size() > 18) {
+                List<Hijo> hijos = empleados.get(i).getHijos();
+                for (int j = 0; j < hijos.size(); j++) {
+                    if (hijos.get(j).getEdadHijo() < 18) {
                         hijosMenoresEdad.add(empleados.get(i));
+                        break;
                     }
                 }
             }
