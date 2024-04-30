@@ -7,6 +7,7 @@ import com.denniseckerskorn.ejer06.MenuTraductor;
 import com.denniseckerskorn.ejer07.MenuDivisas;
 import com.denniseckerskorn.ejer09.MenuDictionary;
 import com.denniseckerskorn.ejer10.MenuEmpresa;
+import com.denniseckerskorn.pruebasiterator.RandomSeries;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,6 +42,15 @@ public class Main {
         //MenuDivisas menuDivisas = new MenuDivisas();
         //MenuDictionary menuDictionary = new MenuDictionary();
         //MenuDictionary menuDictionary2 = new MenuDictionary();
-        MenuEmpresa menuEmpresa = new MenuEmpresa();
+        //MenuEmpresa menuEmpresa = new MenuEmpresa();
+
+        /*
+        RandomSeries randomSeries = new RandomSeries(1,100);
+        for(double numero : randomSeries) {
+            System.out.println(numero);
+        }
+         */
+
+
     }
 }
