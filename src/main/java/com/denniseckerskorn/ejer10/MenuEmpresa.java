@@ -13,7 +13,6 @@ public class MenuEmpresa {
     private ConsoleMenu menuConsultas;
     private Empresa empresa;
     private Empleado empleadoActual;
-    private Hijo hijo;
 
     public MenuEmpresa() {
         empresa = new Empresa();
