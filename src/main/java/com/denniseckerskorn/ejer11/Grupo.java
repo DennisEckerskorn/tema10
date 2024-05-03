@@ -1,5 +1,7 @@
 package com.denniseckerskorn.ejer11;
 
+import java.util.List;
+
 public class Grupo {
     private static int nextID = 1;
     private final int id;

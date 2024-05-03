@@ -17,4 +17,26 @@ public class Aula {
     public float getMetrosCuadrados() {
         return metrosCuadrados;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Aula aula = (Aula) o;
+        return id == aula.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Aula{" +
+                "id=" + id +
+                ", metrosCuadrados=" + metrosCuadrados +
+                '}';
+    }
 }
