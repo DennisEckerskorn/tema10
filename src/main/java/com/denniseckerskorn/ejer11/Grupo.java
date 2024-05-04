@@ -1,18 +1,60 @@
 package com.denniseckerskorn.ejer11;
 
-import java.util.List;
+import net.datafaker.Faker;
+
+import java.time.LocalDate;
+import java.util.*;
 
 public class Grupo {
     private static int nextID = 1;
     private final int id;
+    private final List<Alumno> alumnos;
+    private final Map<Asignatura, Profesor> asignaturaProfesorMap;
     private final String nombre;
     private final Aula aula;
 
-    public Grupo(String nombre, Aula aula) {
+
+    public Grupo(String nombre, Aula aula, int cantidadAlumnos) {
         id = nextID++;
+        alumnos = new ArrayList<>();
+        asignaturaProfesorMap = new HashMap<>();
         this.nombre = nombre;
         this.aula = aula;
+
+        addAlumnosAuto(cantidadAlumnos);
     }
+
+    /**
+     * Método que añade un alumno a la Lista de alumnos
+     *
+     * @param nombre
+     * @param apellido
+     * @param fechaNacimiento
+     * @return {@true} si se añade, de lo contrario {@false}.
+     */
+    public boolean addAlumnoManual(String nombre, String apellido, LocalDate fechaNacimiento) {
+        Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, this);
+        return alumnos.add(alumno);
+    }
+
+    /**
+     * Método que genera alumnos aleatorios dentro de un grupo específico y los añade a la lista.
+     * @param cantidadAlumnos cantidad de alumnos a generar.
+     */
+    private void addAlumnosAuto(int cantidadAlumnos) {
+        Faker faker = new Faker(new Locale("es", "ES"));
+        for (int i = 0; i < cantidadAlumnos; i++) {
+            String nombre = faker.name().firstName();
+            String apellido = faker.name().lastName();
+            LocalDate fechaNacimiento = faker.date().birthdayLocalDate();
+            Grupo grupo = this;
+            Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, grupo);
+            alumnos.add(alumno);
+        }
+    }
+
+
+
 
     public int getId() {
         return id;
@@ -24,6 +66,14 @@ public class Grupo {
 
     public Aula getAula() {
         return aula;
+    }
+
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public Map<Asignatura, Profesor> getAsignaturaProfesorMap() {
+        return asignaturaProfesorMap;
     }
 
     @Override
@@ -44,8 +94,10 @@ public class Grupo {
     public String toString() {
         return "Grupo{" +
                 "id=" + id +
+                ", alumnos=" + alumnos +
+                ", asignaturaProfesorMap=" + asignaturaProfesorMap +
                 ", nombre='" + nombre + '\'' +
                 ", aula=" + aula +
-                '}';
+                '}' + "\n";
     }
 }

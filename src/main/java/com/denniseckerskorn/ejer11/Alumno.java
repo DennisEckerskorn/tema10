@@ -59,7 +59,7 @@ public class Alumno {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
-                ", grupo=" + grupo +
-                '}';
+                ", grupo=" + grupo.getNombre() +
+                '}' + "\n";
     }
 }

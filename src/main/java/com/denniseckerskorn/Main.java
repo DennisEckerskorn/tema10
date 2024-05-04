@@ -7,6 +7,7 @@ import com.denniseckerskorn.ejer06.MenuTraductor;
 import com.denniseckerskorn.ejer07.MenuDivisas;
 import com.denniseckerskorn.ejer09.MenuDictionary;
 import com.denniseckerskorn.ejer10.MenuEmpresa;
+import com.denniseckerskorn.ejer11.MenuCentroEducativo;
 import com.denniseckerskorn.pruebasiterator.RandomSeries;
 
 public class Main {
@@ -51,6 +52,7 @@ public class Main {
         }
          */
 
+        MenuCentroEducativo menuCentroEducativo = new MenuCentroEducativo();
 
     }
 }
