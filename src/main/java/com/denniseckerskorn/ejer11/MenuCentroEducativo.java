@@ -19,6 +19,8 @@ public class MenuCentroEducativo {
         Grupo grupo1 = new Grupo("DAM", aula1, 20);
         Grupo grupo2 = new Grupo("DAW", aula2, 15);
         centro = new CentroEducativo();
+        centro.addAula(aula1);
+        centro.addAula(aula2);
         centro.addGrupo(grupo1);
         centro.addGrupo(grupo2);
 
@@ -89,18 +91,20 @@ public class MenuCentroEducativo {
         int opcion;
         opcion = menuAltas.mostrarMenuInt();
         switch (opcion) {
-            case 1:
+            case 1: //Alta Alumnos
                 altaAlumno();
                 break;
-            case 2:
+            case 2: // Alta Asignaturas
                 break;
-            case 3:
+            case 3: //Alta Grupos.
+                altaGrupo();
                 break;
-            case 4:
+            case 4: //Alta Aulas
+                altaAulas();
                 break;
-            case 5:
+            case 5: //Alta Profesores
                 break;
-            case 6:
+            case 6: //Salir
                 return;
             default:
                 System.out.println("Opción no válida");
@@ -121,7 +125,13 @@ public class MenuCentroEducativo {
         System.out.println("¿A qué Grupo pertenece el Alumno?");
         showGroups();
         Grupo grupoSeleccionado = selectGroup();
-        grupoSeleccionado.addAlumnoManual(nombre, apellido, fechaNacimiento);
+        if(grupoSeleccionado.addAlumnoManual(nombre,apellido,fechaNacimiento,grupoSeleccionado)) {
+            System.out.println("El alumno se ha añadido correctamente");
+        } else {
+            System.out.println("El alumno no se ha podido añadir correctamente porque ya existe");
+        }
+
+
         //TODO: Remove after testing...
         System.out.println(grupoSeleccionado);
         System.out.println(centro);
@@ -138,11 +148,46 @@ public class MenuCentroEducativo {
 
     /**
      * Método que permite seleccionar el grupo según su número de opción generado.
+     *
      * @return el grupo seleccionado
      */
     private Grupo selectGroup() {
         int opcion = LibIO.requestInt("Selecciona el Grupo", 1, centro.getGrupos().size());
         return centro.getGrupos().get(opcion - 1);
+    }
+
+    private void altaGrupo() {
+        System.out.println("Por favor, ingresa los datos del Grupo nuevo:");
+        String nombre = LibIO.requestString("Nombre: ", 1, 10);
+        int cantidadAlumnos = LibIO.requestInt("Cuántos alumnos tendrá el grupo?");
+        Aula nuevoAula = addAulasToNewGroup();
+        if (!centro.aulaExiste(nuevoAula)) {
+            centro.addGrupo(new Grupo(nombre, nuevoAula, cantidadAlumnos));
+            System.out.println("El aula se ha creado y asignado correctamente al Grupo");
+        } else {
+            System.out.println("El aula ya existe y no se ha podido crear y asignar al grupo nuevo.");
+        }
+    }
+
+    private Aula addAulasToNewGroup() {
+        System.out.println("Por favor, ingresa los datos del Aula:");
+        String nombre = LibIO.requestString("Nombre del aula: ", 1, 10);
+        float metrosCuadrados = LibIO.requestFloat("Metros Cuadrados del Aula:", 1, 200);
+        return new Aula(nombre, metrosCuadrados);
+    }
+
+    private void altaAulas() {
+        System.out.println("Por favor, ingresa los datos del Aula:");
+        String nombre = LibIO.requestString("Nombre del aula: ", 1, 10);
+        float metrosCuadrados = LibIO.requestFloat("Metros Cuadrados del Aula:", 1, 200);
+        Aula nuevoAula = new Aula(nombre, metrosCuadrados);
+        if (!centro.aulaExiste(nuevoAula)) {
+            centro.addAula(new Aula(nombre, metrosCuadrados));
+            System.out.println("El Aula se ha creado correctamente");
+        } else {
+            System.out.println("El aula con estos datos ya existe y no se ha podido añadir.");
+            System.out.println(centro.getAulas());
+        }
     }
 
     private void showMenuBajas() {

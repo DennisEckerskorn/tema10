@@ -32,13 +32,17 @@ public class Grupo {
      * @param fechaNacimiento
      * @return {@true} si se añade, de lo contrario {@false}.
      */
-    public boolean addAlumnoManual(String nombre, String apellido, LocalDate fechaNacimiento) {
-        Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, this);
+    public boolean addAlumnoManual(String nombre, String apellido, LocalDate fechaNacimiento, Grupo grupo) {
+        Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, grupo);
+        if(existeAlumno(nombre, apellido)) {
+            return false;
+        }
         return alumnos.add(alumno);
     }
 
     /**
      * Método que genera alumnos aleatorios dentro de un grupo específico y los añade a la lista.
+     *
      * @param cantidadAlumnos cantidad de alumnos a generar.
      */
     private void addAlumnosAuto(int cantidadAlumnos) {
@@ -53,7 +57,14 @@ public class Grupo {
         }
     }
 
-
+    public boolean existeAlumno(String nombre, String apellido) {
+        for (int i = 0; i < alumnos.size(); i++) {
+            if (alumnos.get(i).getNombre().equals(nombre) && alumnos.get(i).getApellido().equals(apellido)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public int getId() {

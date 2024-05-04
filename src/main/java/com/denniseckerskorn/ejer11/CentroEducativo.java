@@ -5,9 +5,11 @@ import java.util.List;
 
 public class CentroEducativo {
     private final List<Grupo> grupos;
+    private final List<Aula> aulas;
 
     public CentroEducativo() {
         grupos = new ArrayList<>();
+        aulas = new ArrayList<>();
     }
 
     /**
@@ -20,11 +22,33 @@ public class CentroEducativo {
     }
 
     /**
+     * Permite añadir un aula a la lista de aulas.
+     * @param aula
+     * @return
+     */
+    public boolean addAula(Aula aula) {
+        return aulas.add(aula);
+    }
+
+    public boolean aulaExiste(Aula aula) {
+        for(int i = 0; i < aulas.size(); i++) {
+            if(aulas.get(i).getId() == aula.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Permite obtener la lista completa de grupos.
      * @return lista de grupos.
      */
     public List<Grupo> getGrupos() {
         return grupos;
+    }
+
+    public List<Aula> getAulas() {
+        return aulas;
     }
 
     /**
@@ -59,6 +83,7 @@ public class CentroEducativo {
     public String toString() {
         return "CentroEducativo{" +
                 "grupos=" + grupos +
-                '}' + "\n";
+                ", aulas=" + aulas +
+                '}';
     }
 }
