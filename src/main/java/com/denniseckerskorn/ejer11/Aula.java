@@ -1,12 +1,12 @@
 package com.denniseckerskorn.ejer11;
 
 public class Aula {
-    private static int nextID = 50;
+    private static int nextId = 50; //ID starts at 50
     private final int id;
     private final float metrosCuadrados;
 
     public Aula(float metrosCuadrados) {
-        id = nextID;
+        id = nextId++;
         this.metrosCuadrados = metrosCuadrados;
     }
 

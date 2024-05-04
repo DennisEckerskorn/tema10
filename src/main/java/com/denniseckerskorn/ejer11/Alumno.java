@@ -11,7 +11,7 @@ public class Alumno {
     private final Grupo grupo;
 
     public Alumno(String nombre, String apellido, LocalDate fechaNacimiento, Grupo grupo) {
-        nia = nextNIA;
+        nia = nextNIA++;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;

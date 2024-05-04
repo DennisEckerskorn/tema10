@@ -9,7 +9,7 @@ public class Grupo {
     private final Aula aula;
 
     public Grupo(String nombre, Aula aula) {
-        id = nextID;
+        id = nextID++;
         this.nombre = nombre;
         this.aula = aula;
     }
