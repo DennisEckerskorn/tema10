@@ -9,7 +9,7 @@ public class Grupo {
     private static int nextID = 1;
     private final int id;
     private final List<Alumno> alumnos;
-    private final Map<Asignatura, Profesor> asignaturaProfesorMap;
+    private final Map<Asignatura.AsignaturaEnum, Profesor> asignaturaProfesorMap;
     private final String nombre;
     private final Aula aula;
 
@@ -17,7 +17,7 @@ public class Grupo {
     public Grupo(String nombre, Aula aula, int cantidadAlumnos) {
         id = nextID++;
         alumnos = new ArrayList<>();
-        asignaturaProfesorMap = new HashMap<>();
+        asignaturaProfesorMap = new HashMap<Asignatura.AsignaturaEnum, Profesor>();
         this.nombre = nombre;
         this.aula = aula;
 
@@ -34,7 +34,7 @@ public class Grupo {
      */
     public boolean addAlumnoManual(String nombre, String apellido, LocalDate fechaNacimiento, Grupo grupo) {
         Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, grupo);
-        if(existeAlumno(nombre, apellido)) {
+        if(existeAlumnoPorNombreApellido(nombre, apellido)) {
             return false;
         }
         return alumnos.add(alumno);
@@ -57,13 +57,17 @@ public class Grupo {
         }
     }
 
-    public boolean existeAlumno(String nombre, String apellido) {
+    public boolean existeAlumnoPorNombreApellido(String nombre, String apellido) {
         for (int i = 0; i < alumnos.size(); i++) {
             if (alumnos.get(i).getNombre().equals(nombre) && alumnos.get(i).getApellido().equals(apellido)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public void addAsignaturaProfesor(Asignatura.AsignaturaEnum asignatura, Profesor profesor) {
+        asignaturaProfesorMap.put(asignatura, profesor);
     }
 
 
@@ -83,7 +87,7 @@ public class Grupo {
         return alumnos;
     }
 
-    public Map<Asignatura, Profesor> getAsignaturaProfesorMap() {
+    public Map<Asignatura.AsignaturaEnum, Profesor> getAsignaturaProfesorMap() {
         return asignaturaProfesorMap;
     }
 

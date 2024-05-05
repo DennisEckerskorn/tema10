@@ -36,7 +36,7 @@ public class MenuCentroEducativo {
 
         menuAltas = new ConsoleMenu("MENÚ DE ALTAS");
         menuAltas.addOpcion("Alta de Alumnos...");
-        menuAltas.addOpcion("Alta de Asignaturas...");
+        menuAltas.addOpcion("Asociar Asignaturas con Profesores...");
         menuAltas.addOpcion("Alta de Grupos...");
         menuAltas.addOpcion("Alta de Aulas...");
         menuAltas.addOpcion("Alta de Profesores...");
@@ -94,7 +94,8 @@ public class MenuCentroEducativo {
             case 1: //Alta Alumnos
                 altaAlumno();
                 break;
-            case 2: // Alta Asignaturas
+            case 2: // Asociar Asignaturas con Profesores
+
                 break;
             case 3: //Alta Grupos.
                 altaGrupo();
@@ -125,7 +126,7 @@ public class MenuCentroEducativo {
         System.out.println("¿A qué Grupo pertenece el Alumno?");
         showGroups();
         Grupo grupoSeleccionado = selectGroup();
-        if(grupoSeleccionado.addAlumnoManual(nombre,apellido,fechaNacimiento,grupoSeleccionado)) {
+        if (grupoSeleccionado.addAlumnoManual(nombre, apellido, fechaNacimiento, grupoSeleccionado)) {
             System.out.println("El alumno se ha añadido correctamente");
         } else {
             System.out.println("El alumno no se ha podido añadir correctamente porque ya existe");
@@ -137,12 +138,28 @@ public class MenuCentroEducativo {
         System.out.println(centro);
     }
 
+    private void asociarAsignaturaProfesor() {
+        System.out.println("Elige la Asignatura a Asociar:");
+        int index = 1;
+        for (Asignatura.AsignaturaEnum asignatura : Asignatura.AsignaturaEnum.values()) {
+            System.out.println(index + ". " + asignatura.getNombreCompletoAsignatura());
+            index++;
+        }
+        int opcion = LibIO.requestInt("Elige una asignatura", 1, Asignatura.AsignaturaEnum.values().length);
+        //TODO: Mostrar profesores y asociarlos al hasmap junto ala asignatura elegida.
+
+    }
+
     /**
      * Método que muestra los grupos disponibles con un número para seleccionar la opción(grupo).
      */
     private void showGroups() {
         for (int i = 0; i < centro.getGrupos().size(); i++) {
-            System.out.println((i + 1) + ". " + centro.getNombreGrupo(i));
+            if (centro.getNombreGrupo(i) != null) {
+                System.out.println((i + 1) + ". " + centro.getNombreGrupo(i));
+            } else {
+                System.out.println("Nombres no disponibles (nulos)");
+            }
         }
     }
 
@@ -189,6 +206,7 @@ public class MenuCentroEducativo {
             System.out.println(centro.getAulas());
         }
     }
+
 
     private void showMenuBajas() {
         int opcion;

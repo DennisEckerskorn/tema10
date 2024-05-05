@@ -50,6 +50,6 @@ public class Profesor {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", sueldo=" + sueldo +
-                '}';
+                '}' + "\n";
     }
 }

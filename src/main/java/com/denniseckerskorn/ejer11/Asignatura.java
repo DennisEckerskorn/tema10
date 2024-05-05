@@ -24,12 +24,10 @@ public class Asignatura {
     private static int nextId = 1;
     private final int id;
     private final AsignaturaEnum nombre;
-    private final Profesor profesor;
 
-    public Asignatura(AsignaturaEnum nombre, Profesor profesor) {
+    public Asignatura(AsignaturaEnum nombre) {
         this.id = nextId++;
         this.nombre = nombre;
-        this.profesor = profesor;
     }
 
     public int getId() {
@@ -40,9 +38,6 @@ public class Asignatura {
         return nombre;
     }
 
-    public Profesor getProfesor() {
-        return profesor;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -50,14 +45,13 @@ public class Asignatura {
         if (o == null || getClass() != o.getClass()) return false;
 
         Asignatura that = (Asignatura) o;
-        return id == that.id && nombre == that.nombre && profesor.equals(that.profesor);
+        return id == that.id && nombre == that.nombre;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + nombre.hashCode();
-        result = 31 * result + profesor.hashCode();
         return result;
     }
 
@@ -66,7 +60,6 @@ public class Asignatura {
         return "Asignatura{" +
                 "id=" + id +
                 ", nombre=" + nombre +
-                ", profesor=" + profesor +
                 '}';
     }
 }
