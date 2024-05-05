@@ -32,6 +32,7 @@ public class CentroEducativo {
 
     /**
      * Permite añadir un grupo a la lista de grupos.
+     *
      * @param grupo
      * @return {@true} si se ha añadido correctamente, de lo contrario, {@false}
      */
@@ -41,6 +42,7 @@ public class CentroEducativo {
 
     /**
      * Permite añadir un aula a la lista de aulas.
+     *
      * @param aula
      * @return
      */
@@ -52,26 +54,28 @@ public class CentroEducativo {
         return profesores.add(profesor);
     }
 
-    public Profesor getProfesorByDNI(String dni) {
-        for(int i = 0; i < profesores.size(); i++) {
-            if(profesores.get(i).getDni().equals(dni)) {
-                return profesores.get(i);
-            }
-        }
-        return null;
-    }
-
     public boolean aulaExiste(Aula aula) {
-        for(int i = 0; i < aulas.size(); i++) {
-            if(aulas.get(i).getId() == aula.getId()) {
+        for (int i = 0; i < aulas.size(); i++) {
+            if (aulas.get(i).getId() == aula.getId()) {
                 return true;
             }
         }
         return false;
     }
 
+    public Alumno obtenerAlumnoPorNia(int nia) {
+        for (Grupo grupo : grupos) {
+            Alumno alumno = grupo.getAlumnoPorNIA(nia);
+            if (alumno != null) {
+                return alumno;
+            }
+        }
+        return null;
+    }
+
     /**
      * Permite obtener la lista completa de grupos.
+     *
      * @return lista de grupos.
      */
     public List<Grupo> getGrupos() {
@@ -88,16 +92,35 @@ public class CentroEducativo {
 
     /**
      * Permite obtener el nombre de cada grupo, sirve para mostrar los nombres de grupo.
+     *
      * @param index
      * @return
      */
     public String getNombreGrupo(int index) {
-        if(index >= 0 && index < grupos.size()) {
+        if (index >= 0 && index < grupos.size()) {
             Grupo grupo = grupos.get(index);
             return grupo.getNombre();
         } else {
             return null;
         }
+    }
+
+    public Profesor getProfesorByDNI(String dni) {
+        for (int i = 0; i < profesores.size(); i++) {
+            if (profesores.get(i).getDni().equals(dni)) {
+                return profesores.get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean profesorExiste(String dni) {
+        for (int i = 0; i < profesores.size(); i++) {
+            if (profesores.get(i).getDni().equals(dni)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Grupo {
      */
     public boolean addAlumnoManual(String nombre, String apellido, LocalDate fechaNacimiento, Grupo grupo) {
         Alumno alumno = new Alumno(nombre, apellido, fechaNacimiento, grupo);
-        if(existeAlumnoPorNombreApellido(nombre, apellido)) {
+        if (existeAlumnoPorNombreApellido(nombre, apellido)) {
             return false;
         }
         return alumnos.add(alumno);
@@ -68,6 +68,15 @@ public class Grupo {
 
     public void addAsignaturaProfesor(Asignatura.AsignaturaEnum asignatura, Profesor profesor) {
         asignaturaProfesorMap.put(asignatura, profesor);
+    }
+
+    public Alumno getAlumnoPorNIA(int nia) {
+        for (int i = 0; i < alumnos.size(); i++) {
+            if (alumnos.get(i).getNia() == nia) {
+                return alumnos.get(i);
+            }
+        }
+        return null;
     }
 
 

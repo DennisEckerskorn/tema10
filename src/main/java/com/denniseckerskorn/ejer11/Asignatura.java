@@ -2,13 +2,13 @@ package com.denniseckerskorn.ejer11;
 
 public class Asignatura {
     public enum AsignaturaEnum {
-        PRG ("Programación"),
-        BBDD ("Bases de Datos"),
-        ED ("Entornos de Desarollo"),
-        SI ("Sistemas Informáticos"),
-        ENG ("Inglés"),
-        FOL ("Formación Orientación Laboral"),
-        LM ("Lenguajes de Marcas");
+        PRG("Programación"),
+        BBDD("Bases de Datos"),
+        ED("Entornos de Desarollo"),
+        SI("Sistemas Informáticos"),
+        ENG("Inglés"),
+        FOL("Formación Orientación Laboral"),
+        LM("Lenguajes de Marcas");
 
         private final String nombreCompletoAsignatura;
 

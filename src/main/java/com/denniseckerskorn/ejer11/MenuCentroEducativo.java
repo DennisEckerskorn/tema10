@@ -51,7 +51,7 @@ public class MenuCentroEducativo {
         menuBajas.addOpcion("Volver al menú principal...");
 
         menuInfo = new ConsoleMenu("MENÚ DE CONSULTAS");
-        menuInfo.addOpcion("Mostrar Alumno");
+        menuInfo.addOpcion("Obtener Alumno por NIA...");
         menuInfo.addOpcion("Mostrar Alumnos por Grupo");
         menuInfo.addOpcion("Mostrar Alumnos por Profesor");
         menuInfo.addOpcion("Mostrar Profesor");
@@ -95,7 +95,7 @@ public class MenuCentroEducativo {
                 altaAlumno();
                 break;
             case 2: // Asociar Asignaturas con Profesores
-
+                asociarAsignaturaProfesor();
                 break;
             case 3: //Alta Grupos.
                 altaGrupo();
@@ -104,6 +104,8 @@ public class MenuCentroEducativo {
                 altaAulas();
                 break;
             case 5: //Alta Profesores
+                altaProfesor();
+                System.out.println(centro);
                 break;
             case 6: //Salir
                 return;
@@ -131,23 +133,37 @@ public class MenuCentroEducativo {
         } else {
             System.out.println("El alumno no se ha podido añadir correctamente porque ya existe");
         }
-
-
-        //TODO: Remove after testing...
-        System.out.println(grupoSeleccionado);
-        System.out.println(centro);
     }
 
+    /**
+     * Método que permite mostrar y elegir los grupos, asignaturas y profesores disponibles.
+     * Finalmente las opciones elegidas permiten guardar las asignaturas con el profesor elegido a un grupo especifico.
+     * Para guardar las asignaturas y los profesores se usa un hashmap, y el hasmap esta asociado a un grupo especifico.
+     */
     private void asociarAsignaturaProfesor() {
-        System.out.println("Elige la Asignatura a Asociar:");
-        int index = 1;
-        for (Asignatura.AsignaturaEnum asignatura : Asignatura.AsignaturaEnum.values()) {
-            System.out.println(index + ". " + asignatura.getNombreCompletoAsignatura());
-            index++;
-        }
-        int opcion = LibIO.requestInt("Elige una asignatura", 1, Asignatura.AsignaturaEnum.values().length);
-        //TODO: Mostrar profesores y asociarlos al hasmap junto ala asignatura elegida.
+        System.out.println("Elige el Grupo al que deseas asociar la Asignatura y el Profesor:");
+        showGroups();
+        Grupo grupoSeleccionado = selectGroup();
 
+        System.out.println("Elige la Asignatura a Asociar:");
+        int indexAsignaturas = 1;
+        for (Asignatura.AsignaturaEnum asignatura : Asignatura.AsignaturaEnum.values()) {
+            System.out.println(indexAsignaturas + ". " + asignatura.getNombreCompletoAsignatura());
+            indexAsignaturas++;
+        }
+        int opcionAsignaturas = LibIO.requestInt("Elige una asignatura", 1, Asignatura.AsignaturaEnum.values().length);
+
+        int indexProfesores = 1;
+        for (Profesor profesor : centro.getProfesores()) {
+            System.out.println(indexProfesores + ". " + profesor.getNombre() + " " + profesor.getApellido());
+            indexProfesores++;
+        }
+        int opcionProfesores = LibIO.requestInt("Elige el profesor:", 1, centro.getProfesores().size());
+
+        Asignatura.AsignaturaEnum asignaturaSeleccionada = Asignatura.AsignaturaEnum.values()[opcionAsignaturas - 1];
+        Profesor profesorSeleccionado = centro.getProfesores().get(opcionProfesores - 1);
+
+        grupoSeleccionado.addAsignaturaProfesor(asignaturaSeleccionada, profesorSeleccionado);
     }
 
     /**
@@ -207,6 +223,24 @@ public class MenuCentroEducativo {
         }
     }
 
+    private void altaProfesor() {
+        System.out.println("Por favor, ingresa los datos del Profesor:");
+        String dni = LibIO.requestString("DNI: ", 6, 9);
+        if (centro.profesorExiste(dni)) {
+            System.out.println("El profesor ya existe con DNI " + dni);
+        } else {
+            String nombre = LibIO.requestString("Nombre: ", 3, 10);
+            String apellido = LibIO.requestString("Apellido: ", 3, 20);
+            float sueldo = LibIO.requestFloat("Sueldo: ", 1000, 4000);
+            Profesor nuevoProfesor = new Profesor(dni, nombre, apellido, sueldo);
+            if (centro.addProfesor(nuevoProfesor)) {
+                System.out.println("El profesor se ha añadido correctamente");
+            } else {
+                System.out.println("No se ha podido añadir al profesor");
+            }
+        }
+    }
+
 
     private void showMenuBajas() {
         int opcion;
@@ -234,9 +268,11 @@ public class MenuCentroEducativo {
         int opcion;
         opcion = menuInfo.mostrarMenuInt();
         switch (opcion) {
-            case 1:
+            case 1: //Obtener Alumno por NIA...
+                obtenerAlumnoPorNIA();
                 break;
-            case 2:
+            case 2: //Mostrar Alumnos por Grupo
+                obtenerAlumnosPorGrupo();
                 break;
             case 3:
                 break;
@@ -248,5 +284,22 @@ public class MenuCentroEducativo {
                 System.out.println("Opción no válida");
                 break;
         }
+    }
+
+    private void obtenerAlumnoPorNIA() {
+        int nia = LibIO.requestInt("Introduce el NIA del Alumno:", 1, 999);
+        Alumno alumno = centro.obtenerAlumnoPorNia(nia);
+        if (alumno != null) {
+            System.out.println(alumno);
+        } else {
+            System.out.println("El Alumno con NIA " + nia + " no existe");
+        }
+    }
+
+    private void obtenerAlumnosPorGrupo() {
+        System.out.println("¿De qué grupo quieres mostrar los alumnos?");
+        showGroups();
+        Grupo grupo = selectGroup();
+        System.out.println(grupo);
     }
 }
