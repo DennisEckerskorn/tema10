@@ -17,7 +17,7 @@ public class Grupo {
     public Grupo(String nombre, Aula aula, int cantidadAlumnos) {
         id = nextID++;
         alumnos = new ArrayList<>();
-        asignaturaProfesorMap = new HashMap<Asignatura.AsignaturaEnum, Profesor>();
+        asignaturaProfesorMap = new HashMap<>();
         this.nombre = nombre;
         this.aula = aula;
 
@@ -77,6 +77,14 @@ public class Grupo {
             }
         }
         return null;
+    }
+
+    public String getProfesorFromAsignaturaDeGrupo(Asignatura.AsignaturaEnum asignatura) throws NullPointerException{
+        String definition = String.valueOf(asignaturaProfesorMap.get(asignatura));
+        if (definition == null) {
+            throw new NullPointerException("The Value is Null");
+        }
+        return definition;
     }
 
 

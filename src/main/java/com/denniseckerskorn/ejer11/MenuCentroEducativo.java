@@ -5,6 +5,7 @@ import com.denniseckerskorn.lib.LibIO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 
 public class MenuCentroEducativo {
     private final ConsoleMenu menuPrincipal;
@@ -52,9 +53,9 @@ public class MenuCentroEducativo {
 
         menuInfo = new ConsoleMenu("MENÚ DE CONSULTAS");
         menuInfo.addOpcion("Obtener Alumno por NIA...");
-        menuInfo.addOpcion("Mostrar Alumnos por Grupo");
-        menuInfo.addOpcion("Mostrar Alumnos por Profesor");
-        menuInfo.addOpcion("Mostrar Profesor");
+        menuInfo.addOpcion("Mostrar Alumnos por Grupo...");
+        menuInfo.addOpcion("Obtener Profesor que imparte algúna Asignatura");
+        menuInfo.addOpcion("Obtener Profesor por DNI");
         menuInfo.addOpcion("Volver al menú principal...");
         //TODO: Add more options...
 
@@ -105,7 +106,6 @@ public class MenuCentroEducativo {
                 break;
             case 5: //Alta Profesores
                 altaProfesor();
-                System.out.println(centro);
                 break;
             case 6: //Salir
                 return;
@@ -145,13 +145,7 @@ public class MenuCentroEducativo {
         showGroups();
         Grupo grupoSeleccionado = selectGroup();
 
-        System.out.println("Elige la Asignatura a Asociar:");
-        int indexAsignaturas = 1;
-        for (Asignatura.AsignaturaEnum asignatura : Asignatura.AsignaturaEnum.values()) {
-            System.out.println(indexAsignaturas + ". " + asignatura.getNombreCompletoAsignatura());
-            indexAsignaturas++;
-        }
-        int opcionAsignaturas = LibIO.requestInt("Elige una asignatura", 1, Asignatura.AsignaturaEnum.values().length);
+        int opcionAsignaturas = listaAsignaturas();
 
         int indexProfesores = 1;
         for (Profesor profesor : centro.getProfesores()) {
@@ -164,6 +158,15 @@ public class MenuCentroEducativo {
         Profesor profesorSeleccionado = centro.getProfesores().get(opcionProfesores - 1);
 
         grupoSeleccionado.addAsignaturaProfesor(asignaturaSeleccionada, profesorSeleccionado);
+    }
+
+    private int listaAsignaturas() {
+        int indexAsignaturas = 1;
+        for (Asignatura.AsignaturaEnum asignatura : Asignatura.AsignaturaEnum.values()) {
+            System.out.println(indexAsignaturas + ". " + asignatura.getNombreCompletoAsignatura());
+            indexAsignaturas++;
+        }
+        return LibIO.requestInt("Elige una asignatura", 1, Asignatura.AsignaturaEnum.values().length);
     }
 
     /**
@@ -274,11 +277,13 @@ public class MenuCentroEducativo {
             case 2: //Mostrar Alumnos por Grupo
                 obtenerAlumnosPorGrupo();
                 break;
-            case 3:
+            case 3: //Obtener Profesor que imparte algúna Asignatura por Grupo
+                obtenerProfesorFromAsignaturaGrupo();
                 break;
-            case 4:
+            case 4: //Obtener Profesor por DNI
+                obtenerProfesorPorDNI();
                 break;
-            case 5:
+            case 5: //Salir
                 return;
             default:
                 System.out.println("Opción no válida");
@@ -301,5 +306,36 @@ public class MenuCentroEducativo {
         showGroups();
         Grupo grupo = selectGroup();
         System.out.println(grupo);
+    }
+
+    private void obtenerProfesorFromAsignaturaGrupo() {
+        System.out.println("Elige el Grupo del que quieres saber los profesores que imparten las asignaturas:");
+        showGroups();
+        Grupo grupoElegido = selectGroup();
+
+        System.out.println("Elige la Asignatura para saber qué Profesor la imparte:");
+        Asignatura.AsignaturaEnum asignaturaElegida = selectAsignatura();
+
+        try {
+            String profesor = grupoElegido.getProfesorFromAsignaturaDeGrupo(asignaturaElegida);
+            System.out.println("El Profesor que imparte la asignatura " + asignaturaElegida + " en el grupo " + grupoElegido.getNombre() + " es: " + profesor);
+        } catch (NullPointerException npe) {
+            System.out.println(npe.getMessage());
+        }
+    }
+
+    private Asignatura.AsignaturaEnum selectAsignatura() {
+        int opcionAsignatura = listaAsignaturas();
+        return Asignatura.AsignaturaEnum.values()[opcionAsignatura - 1];
+    }
+
+    private void obtenerProfesorPorDNI() {
+        String dni = LibIO.requestString("Ingresa el DNI del profesor:", 8, 12);
+        Profesor profesor = centro.obtenerProfesorPorDNI(dni);
+        if (profesor != null) {
+            System.out.println("El profesor con DNI: " + dni + " es: " + profesor);
+        } else {
+            System.out.println("No se ha encontrado al profesor con DNI: " + dni);
+        }
     }
 }
