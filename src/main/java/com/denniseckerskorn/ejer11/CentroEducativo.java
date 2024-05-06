@@ -106,6 +106,20 @@ public class CentroEducativo {
         return null;
     }
 
+    public boolean eliminarAlumno(Alumno alumno) {
+        for(Grupo grupo : grupos) {
+            return grupos.remove(alumno);
+        }
+        return false;
+    }
+
+    public boolean eliminarGrupo(Grupo grupo) {
+        for(int i = 0; i < grupos.size(); i++) {
+            return grupos.remove(grupo);
+        }
+        return false;
+    }
+
     /**
      * Permite buscar un profesor en la lista de profesores mediante su DNI.
      *

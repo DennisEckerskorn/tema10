@@ -45,7 +45,6 @@ public class MenuCentroEducativo {
 
         menuBajas = new ConsoleMenu("MENÚ DE BAJAS");
         menuBajas.addOpcion("Baja de Alumno...");
-        menuBajas.addOpcion("Baja de Asignatura...");
         menuBajas.addOpcion("Baja de Grupo...");
         menuBajas.addOpcion("Baja de Aula...");
         menuBajas.addOpcion("Baja de Profesor...");
@@ -249,22 +248,49 @@ public class MenuCentroEducativo {
         int opcion;
         opcion = menuBajas.mostrarMenuInt();
         switch (opcion) {
-            case 1:
+            case 1: //Baja de alumno
+                bajaAlumno();
                 break;
-            case 2:
+            case 2: // Baja de Grupo...
+                bajaGrupo();
                 break;
-            case 3:
+            case 3: //Baja de Aula...
                 break;
-            case 4:
+            case 4: //Baja de Profesor...
                 break;
-            case 5:
-                break;
-            case 6:
+            case 5: //Salir
                 return;
             default:
                 System.out.println("Opción no válida");
                 break;
         }
+    }
+
+    private void bajaAlumno() {
+        int nia = LibIO.requestInt("Ingresa el NIA del alumno", 1, 999);
+        Alumno alumno = centro.obtenerAlumnoPorNia(nia);
+        System.out.println("El alumno " + alumno + " va a ser borrado");
+        if (alumno != null) {
+            centro.eliminarAlumno(alumno);
+            System.out.println("El alumno ha sido borrado con éxito");
+        } else {
+            System.out.println("No se ha podido eliminar al alumno");
+        }
+    }
+
+    /**
+     * Método que elimina un grupo entero, usar con cuidado...
+     */
+    private void bajaGrupo() {
+        showGroups();
+        Grupo grupoElegido = selectGroup();
+        if(grupoElegido != null) {
+            centro.eliminarGrupo(grupoElegido);
+            System.out.println("El grupo " + grupoElegido + " se ha borrado con éxito");
+        } else {
+            System.out.println("No se ha podido eliminar al grupo elegido");
+        }
+
     }
 
     private void showMenuConsultas() {

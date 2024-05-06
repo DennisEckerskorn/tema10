@@ -88,6 +88,12 @@ public class Grupo {
     }
 
 
+
+    public boolean eliminarAlumno(Alumno alumno) {
+        return alumnos.remove(alumno);
+    }
+
+
     public int getId() {
         return id;
     }
