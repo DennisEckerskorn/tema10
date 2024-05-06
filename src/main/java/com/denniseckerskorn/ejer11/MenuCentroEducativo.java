@@ -5,7 +5,7 @@ import com.denniseckerskorn.lib.LibIO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.NoSuchElementException;
+
 
 public class MenuCentroEducativo {
     private final ConsoleMenu menuPrincipal;
@@ -64,24 +64,28 @@ public class MenuCentroEducativo {
     }
 
     private void showMenuPrincipal() {
-        int opcion;
+        int opcion = 0;
         do {
-            opcion = menuPrincipal.mostrarMenuInt();
-            switch (opcion) {
-                case 1:
-                    showMenuAltas();
-                    break;
-                case 2:
-                    showMenuBajas();
-                    break;
-                case 3:
-                    showMenuConsultas();
-                    break;
-                case 4:
-                    System.out.println("Nos vemos pronto...");
-                    break;
-                default:
-                    System.out.println("Opción no válida");
+            try {
+                opcion = menuPrincipal.mostrarMenuInt();
+                switch (opcion) {
+                    case 1:
+                        showMenuAltas();
+                        break;
+                    case 2:
+                        showMenuBajas();
+                        break;
+                    case 3:
+                        showMenuConsultas();
+                        break;
+                    case 4:
+                        System.out.println("Nos vemos pronto...");
+                        break;
+                    default:
+                        System.out.println("Opción no válida");
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("Solo se permiten ingresar números...");
             }
         } while (opcion != 4);
     }
@@ -159,6 +163,10 @@ public class MenuCentroEducativo {
         grupoSeleccionado.addAsignaturaProfesor(asignaturaSeleccionada, profesorSeleccionado);
     }
 
+    /**
+     * Permite mostrar una lista de asignaturas y elegir una de ellas.
+     * @return la opción elegida en números enteros
+     */
     private int listaAsignaturas() {
         int indexAsignaturas = 1;
         for (Asignatura.AsignaturaEnum asignatura : Asignatura.AsignaturaEnum.values()) {
@@ -191,6 +199,10 @@ public class MenuCentroEducativo {
         return centro.getGrupos().get(opcion - 1);
     }
 
+    /**
+     * Método que permite dar de alta a un grupo nuevo.
+     * Se pide la información necesaria para crear el grupo.
+     */
     private void altaGrupo() {
         System.out.println("Por favor, ingresa los datos del Grupo nuevo:");
         String nombre = LibIO.requestString("Nombre: ", 1, 10);
@@ -243,7 +255,6 @@ public class MenuCentroEducativo {
         }
     }
 
-
     private void showMenuBajas() {
         int opcion;
         opcion = menuBajas.mostrarMenuInt();
@@ -255,8 +266,10 @@ public class MenuCentroEducativo {
                 bajaGrupo();
                 break;
             case 3: //Baja de Aula...
+                bajaAula();
                 break;
             case 4: //Baja de Profesor...
+                bajaProfesor();
                 break;
             case 5: //Salir
                 return;
@@ -284,13 +297,30 @@ public class MenuCentroEducativo {
     private void bajaGrupo() {
         showGroups();
         Grupo grupoElegido = selectGroup();
-        if(grupoElegido != null) {
+        if (grupoElegido != null) {
             centro.eliminarGrupo(grupoElegido);
             System.out.println("El grupo " + grupoElegido + " se ha borrado con éxito");
         } else {
             System.out.println("No se ha podido eliminar al grupo elegido");
         }
+    }
 
+    private void bajaAula() {
+        int idAula = LibIO.requestInt("Ingresa el ID del aula a eliminar:", 1, 999);
+        if (centro.eliminarAula(idAula)) {
+            System.out.println("El aula con ID " + idAula + " se ha eliminado correctamente");
+        } else {
+            System.out.println("No se ha podido eliminar el aula con id " + idAula);
+        }
+    }
+
+    private void bajaProfesor() {
+        String dni = LibIO.requestString("Ingresa el DNI del profesor a eliminar:", 6, 9);
+        if (centro.eliminarProfesor(dni)) {
+            System.out.println("El profesor con DNI " + dni + " se ha eliminado correctamente");
+        } else {
+            System.out.println("El profesor con DNI " + dni + " no se ha podido eliminar");
+        }
     }
 
     private void showMenuConsultas() {

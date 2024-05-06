@@ -107,15 +107,35 @@ public class CentroEducativo {
     }
 
     public boolean eliminarAlumno(Alumno alumno) {
-        for(Grupo grupo : grupos) {
+        for (Grupo grupo : grupos) {
             return grupos.remove(alumno);
         }
         return false;
     }
 
     public boolean eliminarGrupo(Grupo grupo) {
-        for(int i = 0; i < grupos.size(); i++) {
+        for (int i = 0; i < grupos.size(); i++) {
             return grupos.remove(grupo);
+        }
+        return false;
+    }
+
+    public boolean eliminarAula(int id) {
+        for (int i = 0; i < aulas.size(); i++) {
+            Aula aula = aulas.get(i);
+            if (aula.getId() == id) {
+                return aulas.remove(aula);
+            }
+        }
+        return false;
+    }
+
+    public boolean eliminarProfesor(String dni) {
+        for (int i = 0; i < profesores.size(); i++) {
+            Profesor profesor = profesores.get(i);
+            if (profesor.getDni().equals(dni)) {
+                return profesores.remove(profesor);
+            }
         }
         return false;
     }

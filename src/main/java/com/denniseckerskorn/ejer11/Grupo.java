@@ -79,15 +79,13 @@ public class Grupo {
         return null;
     }
 
-    public String getProfesorFromAsignaturaDeGrupo(Asignatura.AsignaturaEnum asignatura) throws NullPointerException{
+    public String getProfesorFromAsignaturaDeGrupo(Asignatura.AsignaturaEnum asignatura) throws NullPointerException {
         String definition = String.valueOf(asignaturaProfesorMap.get(asignatura));
         if (definition == null) {
             throw new NullPointerException("The Value is Null");
         }
         return definition;
     }
-
-
 
     public boolean eliminarAlumno(Alumno alumno) {
         return alumnos.remove(alumno);
