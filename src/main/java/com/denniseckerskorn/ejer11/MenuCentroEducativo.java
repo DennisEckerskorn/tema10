@@ -66,26 +66,22 @@ public class MenuCentroEducativo {
     private void showMenuPrincipal() {
         int opcion = 0;
         do {
-            try {
-                opcion = menuPrincipal.mostrarMenuInt();
-                switch (opcion) {
-                    case 1:
-                        showMenuAltas();
-                        break;
-                    case 2:
-                        showMenuBajas();
-                        break;
-                    case 3:
-                        showMenuConsultas();
-                        break;
-                    case 4:
-                        System.out.println("Nos vemos pronto...");
-                        break;
-                    default:
-                        System.out.println("Opción no válida");
-                }
-            } catch (NumberFormatException nfe) {
-                System.out.println("Solo se permiten ingresar números...");
+            opcion = menuPrincipal.mostrarMenuInt();
+            switch (opcion) {
+                case 1:
+                    showMenuAltas();
+                    break;
+                case 2:
+                    showMenuBajas();
+                    break;
+                case 3:
+                    showMenuConsultas();
+                    break;
+                case 4:
+                    System.out.println("Nos vemos pronto...");
+                    break;
+                default:
+                    System.out.println("Opción no válida");
             }
         } while (opcion != 4);
     }
@@ -165,6 +161,7 @@ public class MenuCentroEducativo {
 
     /**
      * Permite mostrar una lista de asignaturas y elegir una de ellas.
+     *
      * @return la opción elegida en números enteros
      */
     private int listaAsignaturas() {

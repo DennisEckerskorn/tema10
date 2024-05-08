@@ -1,5 +1,6 @@
 package com.denniseckerskorn.lib;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -17,17 +18,17 @@ public class ConsoleMenu {
 
     private void ampliarCapacidad() {
         ConsoleMenu[] copia = new ConsoleMenu[opciones.length * 2];
-        for(int i = 0; i < opciones.length; i++) {
+        for (int i = 0; i < opciones.length; i++) {
             copia[i] = opciones[i];
         }
         opciones = copia;
     }
 
     public ConsoleMenu addOpcion(String texto) {
-        if(opciones == null) {
+        if (opciones == null) {
             opciones = new ConsoleMenu[CAPACIDAD_INICIAL];
         }
-        if(numOpciones == opciones.length) { //El array está lleno
+        if (numOpciones == opciones.length) { //El array está lleno
             ampliarCapacidad();
         }
         ConsoleMenu resultado = new ConsoleMenu(texto);
@@ -36,24 +37,32 @@ public class ConsoleMenu {
     }
 
     public int mostrarMenuInt() {
-        boolean valido;
-        int opcion;
-        do{
+        boolean valido = false;
+        int opcion = 0;
+        do {
             System.out.println(this);
-            opcion = Integer.parseInt(scanner.nextLine());
-            valido = opcion >= 1 && opcion <= numOpciones;
-        }while(!valido);
+            try {
+                opcion = Integer.parseInt(scanner.nextLine());
+                valido = opcion >= 1 && opcion <= numOpciones;
+            } catch (NumberFormatException nfe) {
+                System.out.println("Input not valid");
+            }
+        } while (!valido);
         return opcion;
     }
 
     public char mostrarMenuChar() {
-        boolean valido;
-        char letra;
-        do{
+        boolean valido = false;
+        char letra = ' ';
+        do {
             System.out.println(this);
-            letra = scanner.next().charAt(0);
-            valido = letra >= 'a' && letra <= 'z'; //Falta ajustar
-        }while(!valido);
+            try {
+                letra = scanner.next().charAt(0);
+                valido = letra >= 'a' && letra <= 'z'; //Falta ajustar
+            } catch (NoSuchElementException nsee) {
+                System.out.println("No tokens available");
+            }
+        } while (!valido);
         return letra;
     }
 
@@ -61,6 +70,7 @@ public class ConsoleMenu {
      * Método que recibe el número de opciones del menú y convierte el número a un carácter.
      * El bucle empieza en 97 porque la a minúscula en ASCII es 97.
      * Se suma el número de veces al al contador letra mínima para obtener la cantidad de carácteres a convertir.
+     *
      * @param numVeces Integer
      * @return char correspondiente código ascii.
      */
@@ -68,7 +78,7 @@ public class ConsoleMenu {
         int contadorLetraMin = 97;
         int letraMax = contadorLetraMin + numVeces;
         char letra = ' ';
-        for(int i = contadorLetraMin; i < letraMax; i++) {
+        for (int i = contadorLetraMin; i < letraMax; i++) {
             letra = (char) i;
         }
         return letra;
@@ -78,7 +88,7 @@ public class ConsoleMenu {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("*** ").append(texto).append(" ***\n");
-        for(int i = 0; i < numOpciones; i++) {
+        for (int i = 0; i < numOpciones; i++) {
             sb.append(i + 1).append(". ").append(opciones[i].texto).append("\n"); //Ajustar con stringformat
         }
         sb.append("------------------\n");
